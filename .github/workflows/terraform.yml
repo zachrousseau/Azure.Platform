@@ -5,10 +5,12 @@ on:
   pull_request:
     branches:
     - main
+    paths:
+    - 'resource-groups/**'
 
-defaults:
-  run:
-    working-directory: /resource-groups
+defaults: 
+  run: 
+    working-directory: resource-groups
 
 
 jobs:
