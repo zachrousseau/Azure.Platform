@@ -8,7 +8,7 @@ resource "azurerm_resource_group" "storage" {
   location = "eastus"
 }
 
-resource "azurerm_resource_group" "vm" {
-  name     = "vm"
+resource "azurerm_resource_group" "e-vm" {
+  name     = "e-vm"
   location = "eastus"
 }
