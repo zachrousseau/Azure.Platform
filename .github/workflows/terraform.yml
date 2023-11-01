@@ -15,12 +15,15 @@ defaults:
 
 jobs:
     terraform-plan:
-
-        runs-on: ubuntu-latest
-        
         name: 'Terraform Plan'
 
-        environment: production
+        runs-on: ubuntu-latest
+
+        env:
+          ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
 
         steps:
 
@@ -38,8 +41,3 @@ jobs:
         - name: Terraform Plan
           id: tf-plan
           run: terraform plan -no-color
-          env:
-            ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
-            ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
-            ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-            ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
