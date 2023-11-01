@@ -1,0 +1,39 @@
+name: 'Terraform Apply'
+ 
+
+on:
+  push:
+    branches:
+    - main
+    paths:
+    - 'resource-groups/**'
+
+env: 
+  TF_CLOUD_ORGANIZATION: "zachrouseau"
+  TF_API_TOKEN: ${{ secrets.TF_API_TOKEN}}
+  TF_WORKSPACE: "resource-groups"
+
+defaults: 
+  run: 
+    working-directory: resource-groups
+
+
+jobs:
+    terraform-plan:
+        name: 'Terraform Plan'
+
+        runs-on: ubuntu-latest
+
+        steps:
+
+        - name: Checkout
+          uses: actions/checkout@v3
+          
+        - name: Setup Terraform 
+          uses: hashicorp/setup-terraform@v2
+          with:
+            cli_config_credentials_token: ${{ secrets.TF_API_TOKEN}}
+            terraform_wrapper: false
+        
+        - name: Terraform Apply
+          run: terraform apply

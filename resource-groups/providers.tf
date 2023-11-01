@@ -1,5 +1,14 @@
 # Configure the Azure provider
 terraform {
+  cloud {
+    organization = "zachrouseau"
+
+    workspaces {
+      name = "resource-groups"
+    }
+  }
+
+
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
