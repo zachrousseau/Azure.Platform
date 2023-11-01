@@ -17,32 +17,29 @@ jobs:
     terraform-plan:
 
         runs-on: ubuntu-latest
+        
+        name: 'Terraform Plan'
+
         environment: production
 
-        name: 'Terraform Plan'
-        
-        steps: 
-          - name: Log in with Azure 
-            uses: azure/login@v1
-            with: 
-              client-id: ${{ secrets.AZURE_AD_CLIENT_ID }}
-              # client-secret: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
-              subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-              tenant-id: ${{ secrets.AZURE_AD_TENANT_ID }}
-        
-        
+        steps:
 
-          - name: Checkout
-            uses: actions/checkout@v3
-            
-          - name: Setup Terraform 
-            uses: hashicorp/setup-terraform@v2
-            with:
-              terraform_wrapper: false
+        - name: Checkout
+          uses: actions/checkout@v3
           
-          - name: Terraform Init
-            run: terraform init
+        - name: Setup Terraform 
+          uses: hashicorp/setup-terraform@v2
+          with:
+            terraform_wrapper: false
+        
+        - name: Terraform Init
+          run: terraform init
 
-          - name: Terraform Plan
-            id: tf-plan
-            run: terraform plan -no-color
+        - name: Terraform Plan
+          id: tf-plan
+          run: terraform plan -no-color
+          env:
+            ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
+            ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
+            ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+            ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
