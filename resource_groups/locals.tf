@@ -1,0 +1,5 @@
+locals {
+    location = {
+        eastus = "eastus"
+    }
+}
