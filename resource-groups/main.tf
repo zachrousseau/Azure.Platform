@@ -9,6 +9,6 @@ resource "azurerm_resource_group" "storage" {
 }
 
 resource "azurerm_resource_group" "e-vm" {
-  name     = "c-vm"
+  name     = "e-vm"
   location = "eastus"
 }
